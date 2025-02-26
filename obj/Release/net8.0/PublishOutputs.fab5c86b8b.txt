@@ -1,0 +1,7 @@
+C:\Users\msi-nb\source\repos\KTRS\obj\Release\net8.0\PubTmp\Out\KTRS.exe
+C:\Users\msi-nb\source\repos\KTRS\obj\Release\net8.0\PubTmp\Out\appsettings.Development.json
+C:\Users\msi-nb\source\repos\KTRS\obj\Release\net8.0\PubTmp\Out\appsettings.json
+C:\Users\msi-nb\source\repos\KTRS\obj\Release\net8.0\PubTmp\Out\KTRS.dll
+C:\Users\msi-nb\source\repos\KTRS\obj\Release\net8.0\PubTmp\Out\KTRS.deps.json
+C:\Users\msi-nb\source\repos\KTRS\obj\Release\net8.0\PubTmp\Out\KTRS.runtimeconfig.json
+C:\Users\msi-nb\source\repos\KTRS\obj\Release\net8.0\PubTmp\Out\KTRS.pdb
