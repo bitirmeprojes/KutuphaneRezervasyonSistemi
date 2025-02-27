@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|c:\\users\\elsat\\dropbox\\my pc (laptop-ki9fga7l)\\documents\\github\\kutuphanerezervasyonsistemi\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|solutionrelative:views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|c:\\users\\elsat\\dropbox\\my pc (laptop-ki9fga7l)\\documents\\github\\kutuphanerezervasyonsistemi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|solutionrelative:controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|c:\\users\\elsat\\dropbox\\my pc (laptop-ki9fga7l)\\documents\\github\\kutuphanerezervasyonsistemi\\models\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|solutionrelative:models\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|c:\\users\\elsat\\dropbox\\my pc (laptop-ki9fga7l)\\documents\\github\\kutuphanerezervasyonsistemi\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -13,10 +21,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|c:\\users\\elsat\\dropbox\\my pc (laptop-ki9fga7l)\\documents\\github\\kutuphanerezervasyonsistemi\\models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|solutionrelative:models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|c:\\users\\elsat\\dropbox\\my pc (laptop-ki9fga7l)\\documents\\github\\kutuphanerezervasyonsistemi\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|solutionrelative:views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|c:\\users\\elsat\\dropbox\\my pc (laptop-ki9fga7l)\\documents\\github\\kutuphanerezervasyonsistemi\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -54,46 +58,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Models\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\LoginViewModel.cs",
+              "ToolTip": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Models\\LoginViewModel.cs",
+              "RelativeToolTip": "Models\\LoginViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:29:01.982Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Register.cshtml",
               "DocumentMoniker": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Views\\Account\\Register.cshtml",
               "RelativeDocumentMoniker": "Views\\Account\\Register.cshtml",
               "ToolTip": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Views\\Account\\Register.cshtml",
               "RelativeToolTip": "Views\\Account\\Register.cshtml",
-              "ViewState": "AQIAAGIAAAAAAAAAAAAAAHEAAAA/AAAA",
+              "ViewState": "AQIAAF8AAAAAAAAAAAAAAHEAAAA/AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-02-27T10:29:02.933Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Login.cshtml",
               "DocumentMoniker": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Views\\Account\\Login.cshtml",
               "RelativeDocumentMoniker": "Views\\Account\\Login.cshtml",
               "ToolTip": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Views\\Account\\Login.cshtml",
               "RelativeToolTip": "Views\\Account\\Login.cshtml",
-              "ViewState": "AQIAAEMAAAAAAAAAAAAcwFoAAAAOAAAA",
+              "ViewState": "AQIAAFQAAAAAAAAAAAAAAGYAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-02-27T07:28:00.63Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "AccountController.cs",
               "DocumentMoniker": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
               "ToolTip": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Controllers\\AccountController.cs",
               "RelativeToolTip": "Controllers\\AccountController.cs",
-              "ViewState": "AQIAAEQAAAAAAAAAAADwv08AAAAiAAAA",
+              "ViewState": "AQIAABEAAAAAAAAAAAAAwBwAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-27T07:32:16.271Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
@@ -106,7 +123,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
@@ -119,7 +136,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -132,7 +149,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -145,7 +162,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Users.cs",
               "DocumentMoniker": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Models\\Users.cs",
               "RelativeDocumentMoniker": "Models\\Users.cs",
@@ -158,7 +175,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Models\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "Models\\ApplicationDbContext.cs",

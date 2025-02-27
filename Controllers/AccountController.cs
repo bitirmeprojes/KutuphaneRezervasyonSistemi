@@ -28,7 +28,7 @@ namespace KTRS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(string username, string password)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Email == username && u.password == password);
+            var user = _context.Users.FirstOrDefault(u => u.username == username && u.password == password);
 
             if (user == null)
             {
