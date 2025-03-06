@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|c:\\users\\elsat\\dropbox\\my pc (laptop-ki9fga7l)\\documents\\github\\kutuphanerezervasyonsistemi\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|solutionrelative:views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|c:\\users\\elsat\\dropbox\\my pc (laptop-ki9fga7l)\\documents\\github\\kutuphanerezervasyonsistemi\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|solutionrelative:views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -13,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|c:\\users\\elsat\\dropbox\\my pc (laptop-ki9fga7l)\\documents\\github\\kutuphanerezervasyonsistemi\\models\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|solutionrelative:models\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|c:\\users\\elsat\\dropbox\\my pc (laptop-ki9fga7l)\\documents\\github\\kutuphanerezervasyonsistemi\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|solutionrelative:views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{701D984B-0FDC-4E8B-8C42-253470F9185C}|KTRS.csproj|c:\\users\\elsat\\dropbox\\my pc (laptop-ki9fga7l)\\documents\\github\\kutuphanerezervasyonsistemi\\models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -50,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,7 +58,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "LoginViewModel.cs",
               "DocumentMoniker": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Models\\LoginViewModel.cs",
               "RelativeDocumentMoniker": "Models\\LoginViewModel.cs",
@@ -71,39 +71,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Register.cshtml",
               "DocumentMoniker": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Views\\Account\\Register.cshtml",
               "RelativeDocumentMoniker": "Views\\Account\\Register.cshtml",
               "ToolTip": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Views\\Account\\Register.cshtml",
               "RelativeToolTip": "Views\\Account\\Register.cshtml",
-              "ViewState": "AQIAAF8AAAAAAAAAAAAAAHEAAAA/AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAE0AAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-02-27T10:29:02.933Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Login.cshtml",
               "DocumentMoniker": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Views\\Account\\Login.cshtml",
               "RelativeDocumentMoniker": "Views\\Account\\Login.cshtml",
               "ToolTip": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Views\\Account\\Login.cshtml",
               "RelativeToolTip": "Views\\Account\\Login.cshtml",
-              "ViewState": "AQIAAFQAAAAAAAAAAAAAAGYAAAApAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAGYAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-02-27T07:28:00.63Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "AccountController.cs",
               "DocumentMoniker": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
               "ToolTip": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Controllers\\AccountController.cs",
               "RelativeToolTip": "Controllers\\AccountController.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAAwBwAAAAsAAAA",
+              "ViewState": "AQIAABsAAAAAAAAAAAAowCYAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-27T07:32:16.271Z",
               "EditorCaption": ""
@@ -129,7 +129,7 @@
               "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
               "ToolTip": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\Controllers\\HomeController.cs",
               "RelativeToolTip": "Controllers\\HomeController.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAIBJwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-27T10:14:46.949Z",
               "EditorCaption": ""
