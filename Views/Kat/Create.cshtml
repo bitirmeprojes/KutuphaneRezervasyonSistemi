@@ -1,0 +1,28 @@
+﻿@model KTRS.Models.Kat
+
+@{
+    ViewData["Title"] = "Kat Ekle";
+}
+
+<h2>Kat Ekle</h2>
+
+<form method="post" asp-action="Create">
+    <div class="form-group">
+        <label>Kat No</label>
+        <input asp-for="KatNo" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Ad</label>
+        <input asp-for="Ad" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Satır</label>
+        <input asp-for="MaxRow" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Sütun</label>
+        <input asp-for="MaxCol" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>

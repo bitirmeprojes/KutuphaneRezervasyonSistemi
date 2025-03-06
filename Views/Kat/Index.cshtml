@@ -1,0 +1,36 @@
+﻿@model List<KTRS.Models.Kat>
+
+@{
+    ViewData["Title"] = "Kat Listesi";
+}
+
+<h2>Katlar</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Kat Ekle</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>KatNo</th>
+            <th>Ad</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.KatNo</td>
+                <td>@item.Ad</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Düzenle</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

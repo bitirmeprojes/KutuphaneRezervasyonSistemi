@@ -1,0 +1,38 @@
+﻿@model KTRS.Models.Koltuk
+@{
+    ViewData["Title"] = "Koltuk Ekle/Düzenle";
+}
+
+<form method="post" asp-action="@(Model.Id == 0 ? "Create" : "Edit")">
+    @if (Model.Id != 0)
+    {
+        <input type="hidden" asp-for="Id" />
+    }
+    <div class="form-group">
+        <label>Kat No</label>
+        <input asp-for="KatNo" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label>Koltuk No</label>
+        <input asp-for="koltukNo" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>RowIndex (Satır)</label>
+        <input asp-for="RowIndex" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label>ColumnIndex (Sütun)</label>
+        <input asp-for="ColumnIndex" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label>Durum (True=Boş, False=Dolu)</label>
+        <input asp-for="Durum" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Açıklama</label>
+        <input asp-for="Aciklama" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" asp-route-katNo="@Model.KatNo" class="btn btn-secondary">Geri</a>
+</form>

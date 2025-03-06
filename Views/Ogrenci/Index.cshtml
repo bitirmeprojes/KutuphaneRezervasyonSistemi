@@ -1,20 +1,117 @@
-﻿@model IEnumerable<KTRS.Models.Koltuk>
+﻿@model List<KTRS.Models.Koltuk>
+@{
+    ViewData["Title"] = "Öğrenci Koltuk Görüntüleme (Tüm Hücreler)";
+    int katNo = ViewBag.KatNo ?? 1;
 
-    <h2>Boş Koltuklar</h2>
+    // Sabit 8x4 ya da veritabanından okuduğunuz değeri buradan çekebilirsiniz
+    int maxRow = ViewBag.MaxRow;
+    int maxCol = ViewBag.MaxCol;
+}
 
-    <form asp-action="RezervasyonYap" method="post">
-        <div>
-            <label for="ogrenciID">Öğrenci ID:</label>
-            <input type="text" id="ogrenciID" name="ogrenciID" required />
-        </div>
-        <div>
-            <label for="koltukNo">Koltuk No:</label>
-            <select id="koltukNo" name="koltukNo" required>
-                @foreach (var koltuk in Model)
-                {
-                <option value="@koltuk.koltukNo">@koltuk.koltukNo</option>
-                }
-            </select>
-        </div>
-        <button type="submit">Rezervasyon Yap</button>
-    </form>
+<h2>@($"Kat {katNo} - {maxRow}x{maxCol} Düzen")</h2>
+
+<!-- Kat seçme formu (opsiyonel) -->
+<form method="get" asp-action="Index" asp-controller="Ogrenci">
+    <label>Kat Seç:</label>
+    <input type="number" name="katNo" value="@katNo" />
+    <button type="submit">Göster</button>
+</form>
+
+<hr />
+
+<!-- Çift döngü ile tüm hücreleri göstermek -->
+@for (int row = 0; row < maxRow; row++)
+{
+    <div style="display:flex; margin-bottom:5px;">
+        @for (int col = 0; col < maxCol; col++)
+        {
+            // Bu hücrede koltuk var mı?
+            var koltuk = Model.FirstOrDefault(k => k.RowIndex == row && k.ColumnIndex == col);
+
+            if (koltuk != null)
+            {
+                // Koltuk bulundu
+                // Durum = true => DOLU, Durum = false => BOŞ
+                var color = koltuk.Durum ? "red" : "lightblue";
+
+                <div style="width:80px; height:80px; margin-right:5px; background-color:@color; text-align:center; padding:5px;">
+                    <div>@koltuk.koltukNo</div>
+                    @if (!koltuk.Durum)
+                    {
+                        <!-- Koltuk boş ise rezervasyon butonu -->
+                        <form method="post" asp-action="RezervasyonYap" asp-controller="Ogrenci">
+                            <input type="hidden" name="ogrenciID" value="@User.Identity.Name" />
+                            <input type="hidden" name="koltukNo" value="@koltuk.koltukNo" />
+                            <button type="submit">Rezerve</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span>DOLU</span>
+                    }
+                </div>
+            }
+            else
+            {
+                // Veritabanında kayıt yoksa => hiç eklenmemiş koltuk
+                <div style="width:80px; height:80px; margin-right:5px; background-color:gray; text-align:center; padding:5px;">
+                    Boş
+                </div>
+            }
+        }
+    </div>
+}
+
+@* <div>
+    <!-- Burada basit bir tablo ya da "grid" benzeri gösterim yapabilirsiniz. -->
+    <!-- 1) Sıralı Görüntüleme: Tabloda sırayla -->
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Koltuk No</th>
+                <th>Row</th>
+                <th>Column</th>
+                <th>Durum</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var koltuk in Model)
+            {
+                <tr>
+                    <td>@koltuk.koltukNo</td>
+                    <td>@koltuk.RowIndex</td>
+                    <td>@koltuk.ColumnIndex</td>
+                    <td>
+                        @if (koltuk.Durum)
+                        {
+                            <span style="color:red;">DOLU</span>
+                        }
+                        else
+                        {
+                            <span style="color:green;">BOŞ</span>
+                        }
+                    </td>
+                    <td>
+                        @if (!koltuk.Durum)
+                        {
+                            <!-- Koltuk boş ise rezervasyon butonu -->
+                            <form method="post" asp-action="RezervasyonYap" asp-controller="Ogrenci">
+                                <input type="hidden" name="ogrenciID" value="@User.Identity.Name" />
+                                <input type="hidden" name="koltukNo" value="@koltuk.koltukNo" />
+                                <button type="submit" class="btn btn-primary">Rezerve Et</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span>Rezerve Edilmiş</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+ *@

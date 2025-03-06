@@ -14,8 +14,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
     options.Cookie.Name = "KTRS.Auth";
-    options.LoginPath = "/Account/Index";
-    options.AccessDeniedPath = "/Account/Index";
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/Login";
 }
 );
 

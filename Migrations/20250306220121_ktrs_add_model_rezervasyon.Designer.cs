@@ -3,6 +3,7 @@ using System;
 using KTRS.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KTRS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250306220121_ktrs_add_model_rezervasyon")]
+    partial class ktrs_add_model_rezervasyon
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,32 +24,6 @@ namespace KTRS.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("KTRS.Models.Kat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Ad")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("KatNo")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("MaxCol")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("MaxRow")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Katlar");
-                });
 
             modelBuilder.Entity("KTRS.Models.Koltuk", b =>
                 {
@@ -66,10 +43,10 @@ namespace KTRS.Migrations
                     b.Property<bool>("Durum")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("KatId")
+                    b.Property<int>("KatNo")
                         .HasColumnType("integer");
 
-                    b.Property<int>("KatNo")
+                    b.Property<int?>("KoltukIndexViewModelId")
                         .HasColumnType("integer");
 
                     b.Property<int>("RowIndex")
@@ -81,9 +58,31 @@ namespace KTRS.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KatId");
+                    b.HasIndex("KoltukIndexViewModelId");
 
                     b.ToTable("Koltuklar");
+                });
+
+            modelBuilder.Entity("KTRS.Models.KoltukIndexViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("KatNo")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MaxCol")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MaxRow")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("KoltukIndexViewModel");
                 });
 
             modelBuilder.Entity("KTRS.Models.Ogrenci", b =>
@@ -196,12 +195,12 @@ namespace KTRS.Migrations
 
             modelBuilder.Entity("KTRS.Models.Koltuk", b =>
                 {
-                    b.HasOne("KTRS.Models.Kat", null)
+                    b.HasOne("KTRS.Models.KoltukIndexViewModel", null)
                         .WithMany("Koltuklar")
-                        .HasForeignKey("KatId");
+                        .HasForeignKey("KoltukIndexViewModelId");
                 });
 
-            modelBuilder.Entity("KTRS.Models.Kat", b =>
+            modelBuilder.Entity("KTRS.Models.KoltukIndexViewModel", b =>
                 {
                     b.Navigation("Koltuklar");
                 });
