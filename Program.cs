@@ -42,21 +42,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}");
 
 app.Run();
-
-//public class ApplicationDbContext : DbContext
-//{
-//    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-//        : base(options)
-//    {
-//    }
-
-//    public object Koltuklar { get; internal set; }
-//    public object Rezervasyonlar { get; internal set; }
-
-//    // DbSet properties go here
-//}

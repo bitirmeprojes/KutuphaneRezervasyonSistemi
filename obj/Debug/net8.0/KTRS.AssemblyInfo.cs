@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KTRS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d7a63fbada7d6eacc1c36a13b7f46f46091966b9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+efa305aba59912b2fe2082b3fb6126cdbae0a897")]
 [assembly: System.Reflection.AssemblyProductAttribute("KTRS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KTRS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
