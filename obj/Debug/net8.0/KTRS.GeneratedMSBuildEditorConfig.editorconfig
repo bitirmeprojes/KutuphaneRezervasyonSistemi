@@ -42,12 +42,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/elsat/Dropbox/My PC (LAPTOP-KI9FGA7L)/Documents/GitHub/KutuphaneRezervasyonSistemi/Views/Login/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/elsat/Dropbox/My PC (LAPTOP-KI9FGA7L)/Documents/GitHub/KutuphaneRezervasyonSistemi/Views/Ogrenci/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2dyZW5jaVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/elsat/Dropbox/My PC (LAPTOP-KI9FGA7L)/Documents/GitHub/KutuphaneRezervasyonSistemi/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/elsat/Dropbox/My PC (LAPTOP-KI9FGA7L)/Documents/GitHub/KutuphaneRezervasyonSistemi/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/elsat/Dropbox/My PC (LAPTOP-KI9FGA7L)/Documents/GitHub/KutuphaneRezervasyonSistemi/Views/Yetkili/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWWV0a2lsaVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/elsat/Dropbox/My PC (LAPTOP-KI9FGA7L)/Documents/GitHub/KutuphaneRezervasyonSistemi/Views/_ViewImports.cshtml]

@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace KTRS_deneme_bos
+namespace KTRS
 {
     public class OgrenciIndexModel : PageModel
     {
         public void OnGet()
         {
-            // Metod içeriði
+            // Metod iï¿½eriï¿½i
         }
     }
 }
