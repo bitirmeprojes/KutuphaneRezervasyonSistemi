@@ -1,0 +1,8 @@
+C:\Users\msi-nb\source\repos\KTRS-denemecs\KTRS-denemecs\obj\Debug\net8.0\KTRS-denemecs.csproj.AssemblyReference.cache
+C:\Users\msi-nb\source\repos\KTRS-denemecs\KTRS-denemecs\obj\Debug\net8.0\KTRS-denemecs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\msi-nb\source\repos\KTRS-denemecs\KTRS-denemecs\obj\Debug\net8.0\KTRS-denemecs.AssemblyInfoInputs.cache
+C:\Users\msi-nb\source\repos\KTRS-denemecs\KTRS-denemecs\obj\Debug\net8.0\KTRS-denemecs.AssemblyInfo.cs
+C:\Users\msi-nb\source\repos\KTRS-denemecs\KTRS-denemecs\obj\Debug\net8.0\KTRS-denemecs.csproj.CoreCompileInputs.cache
+C:\Users\msi-nb\source\repos\KTRS-denemecs\KTRS-denemecs\obj\Debug\net8.0\KTRS-denemecs.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\msi-nb\source\repos\KTRS-denemecs\KTRS-denemecs\obj\Debug\net8.0\KTRS-denemecs.RazorAssemblyInfo.cache
+C:\Users\msi-nb\source\repos\KTRS-denemecs\KTRS-denemecs\obj\Debug\net8.0\KTRS-denemecs.RazorAssemblyInfo.cs

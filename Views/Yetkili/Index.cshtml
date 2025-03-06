@@ -1,0 +1,31 @@
+﻿@model IEnumerable<KTRS.Models.Koltuk>
+
+    <h2>Koltuklar</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Koltuk No</th>
+                <th>Durum</th>
+                <th>Güncelle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var koltuk in Model)
+            {
+            <tr>
+                <td>@koltuk.Id</td>
+                <td>@koltuk.koltukNo</td>
+                <td>@koltuk.Durum</td>
+                <td>
+                    <form asp-action="KoltukGuncelle" method="post">
+                        <input type="hidden" name="id" value="@koltuk.Id" />
+                        <input type="text" name="yeniKoltukNo" value="@koltuk.koltukNo" required />
+                        <button type="submit">Güncelle</button>
+                    </form>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>

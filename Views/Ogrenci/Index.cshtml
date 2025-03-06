@@ -1,0 +1,20 @@
+﻿@model IEnumerable<KTRS.Models.Koltuk>
+
+    <h2>Boş Koltuklar</h2>
+
+    <form asp-action="RezervasyonYap" method="post">
+        <div>
+            <label for="ogrenciID">Öğrenci ID:</label>
+            <input type="text" id="ogrenciID" name="ogrenciID" required />
+        </div>
+        <div>
+            <label for="koltukNo">Koltuk No:</label>
+            <select id="koltukNo" name="koltukNo" required>
+                @foreach (var koltuk in Model)
+                {
+                <option value="@koltuk.koltukNo">@koltuk.koltukNo</option>
+                }
+            </select>
+        </div>
+        <button type="submit">Rezervasyon Yap</button>
+    </form>
