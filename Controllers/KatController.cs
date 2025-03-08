@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace KTRS.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles="Admin")]
     public class KatController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -17,23 +17,34 @@ namespace KTRS.Controllers
             _context = context;
         }
 
-        // GET: /Kat/Index
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int blockId)
         {
-            var katlar = await _context.Katlar
-                                       .OrderBy(k => k.KatNo)
-                                       .ToListAsync();
-            return View(katlar);
+            // Belirli bir blockId'ye ait katları listeler
+            var kats = await _context.Katlar
+                                     .Include(k => k.Block)
+                                     .Where(k => k.BlockId == blockId)
+                                     .OrderBy(k => k.KatNo)
+                                     .ToListAsync();
+
+            ViewBag.Block = await _context.Block.FindAsync(blockId);
+            return View(kats);
         }
 
-        // GET: /Kat/Create
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int blockId)
         {
-            return View();
+            // blockId parametresiyle hangi blok'a ekleyeceğimizi belirtiyoruz
+            var block = await _context.Block.FindAsync(blockId);
+            if (block == null) return NotFound();
+
+            var model = new Kat
+            {
+                BlockId = blockId,
+                // KatNo vb. default değerler
+            };
+            return View(model);
         }
 
-        // POST: /Kat/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Kat model)
@@ -42,24 +53,36 @@ namespace KTRS.Controllers
             {
                 _context.Katlar.Add(model);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { blockId = model.BlockId });
             }
             return View(model);
         }
+        [HttpGet]
+        public IActionResult PlanEditor(int katId = 1)
+        {
+            // Bu katin bilgilerini ve varsa mevcut koltuklarini cekelim
+            var kat = _context.Katlar
+                              .Include(k => k.Koltuklar)
+                              .FirstOrDefault(k => k.Id == katId);
+            if (kat == null)
+                return NotFound();
 
-        // GET: /Kat/Edit/5
+            ViewBag.Kat = kat;
+            // Kat.PlanImage gibi bir alana kaydediyorsanız, oradan da resmi alabilirsiniz
+            // Sadece sabit /images/kutuphanePlan.png de olabilir
+            ViewBag.PlanImage = Url.Content("~/A_Kat_Arastirma Salonu.jpg");
+            return View(kat.Koltuklar.ToList());
+        }
+
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var kat = await _context.Katlar.FindAsync(id);
-            if (kat == null)
-            {
-                return NotFound();
-            }
+            if (kat == null) return NotFound();
+
             return View(kat);
         }
 
-        // POST: /Kat/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Kat model)
@@ -67,48 +90,41 @@ namespace KTRS.Controllers
             if (ModelState.IsValid)
             {
                 var kat = await _context.Katlar.FindAsync(model.Id);
-                if (kat == null)
-                {
-                    return NotFound();
-                }
+                if (kat == null) return NotFound();
 
                 kat.KatNo = model.KatNo;
-                kat.Ad = model.Ad;
+                kat.MaxRow = model.MaxRow;
+                kat.MaxCol = model.MaxCol;
+                // block değişikliğine izin vermek isterseniz blockId de güncellenebilir
 
-                _context.Katlar.Update(kat);
                 await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { blockId = kat.BlockId });
             }
             return View(model);
         }
 
-        // GET: /Kat/Delete/5
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var kat = await _context.Katlar.FindAsync(id);
-            if (kat == null)
-            {
-                return NotFound();
-            }
+            var kat = await _context.Katlar
+                                    .Include(k => k.Block)
+                                    .FirstOrDefaultAsync(k => k.Id == id);
+            if (kat == null) return NotFound();
+
             return View(kat);
         }
 
-        // POST: /Kat/DeleteConfirmed/5
         [HttpPost, ActionName("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var kat = await _context.Katlar.FindAsync(id);
-            if (kat == null)
-            {
-                return NotFound();
-            }
+            if (kat == null) return NotFound();
 
+            var blockId = kat.BlockId;
             _context.Katlar.Remove(kat);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { blockId });
         }
     }
 }

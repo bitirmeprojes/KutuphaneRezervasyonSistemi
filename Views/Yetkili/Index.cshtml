@@ -1,31 +1,43 @@
-﻿@model IEnumerable<KTRS.Models.Koltuk>
+﻿@model List<KTRS.Models.Koltuk>
+@{
+    ViewData["Title"] = "Koltuk Düzeni";
+    var kat = ViewBag.Kat as KTRS.Models.Kat;
+    // Kat'ta tanımlı maxRow / maxCol varsa alalım:
+    int maxRow = kat?.MaxRow ?? 4;
+    int maxCol = kat?.MaxCol ?? 4;
+}
 
-    <h2>Koltuklar</h2>
+<h2>@($"Blok: {kat?.Block?.Ad}, KatNo: {kat?.KatNo} Koltuk Düzeni ({maxRow}x{maxCol})")</h2>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Koltuk No</th>
-                <th>Durum</th>
-                <th>Güncelle</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var koltuk in Model)
+<p>
+    <a asp-controller="Kat" asp-action="Index" asp-route-blockId="@kat?.BlockId" class="btn btn-secondary">Kat Listesine Dön</a>
+</p>
+
+<!-- Grid Döngüsü -->
+@for (int row = 0; row < maxRow; row++)
+{
+    <div style="display:flex;">
+        @for (int col = 0; col < maxCol; col++)
+        {
+            // O row,col'da koltuk var mı?
+            var koltuk = Model.FirstOrDefault(k => k.RowIndex == row && k.ColumnIndex == col);
+            if (koltuk != null)
             {
-            <tr>
-                <td>@koltuk.Id</td>
-                <td>@koltuk.koltukNo</td>
-                <td>@koltuk.Durum</td>
-                <td>
-                    <form asp-action="KoltukGuncelle" method="post">
-                        <input type="hidden" name="id" value="@koltuk.Id" />
-                        <input type="text" name="yeniKoltukNo" value="@koltuk.koltukNo" required />
-                        <button type="submit">Güncelle</button>
-                    </form>
-                </td>
-            </tr>
+                var bgColor = koltuk.Durum ? "red" : "lightblue"; // true=dolu, false=boş (örnek)
+                <div style="width:60px; height:60px; margin:3px; background-color:@bgColor; text-align:center;">
+                    @koltuk.KoltukNo
+                    <br />
+                    <a asp-action="Edit" asp-route-id="@koltuk.Id">Düzenle</a> |
+                    <a asp-action="Delete" asp-route-id="@koltuk.Id">Sil</a>
+                </div>
             }
-        </tbody>
-    </table>
+            else
+            {
+                // Kayıtlı koltuk yoksa "Boş"
+                <div style="width:60px; height:60px; margin:3px; background-color:gray; text-align:center;">
+                    <a asp-action="Create" asp-route-katId="@kat?.Id" asp-route-row="@row" asp-route-col="@col">Ekle</a>
+                </div>
+            }
+        }
+    </div>
+}

@@ -1,0 +1,153 @@
+﻿@model List<KTRS.Models.Koltuk>
+@{
+    var kat = ViewBag.Kat as KTRS.Models.Kat;
+    string planImage = ViewBag.PlanImage as string; // "/images/kutuphanePlan.png"
+                                                    // Planın genişlik/yükseklik değerleri (piksel). Sabit veya Kat modelinden de gelebilir.
+    int planWidth = 800;
+    int planHeight = 600;
+}
+
+<h2>[ADMIN] - Kat: @kat.KatNo Plan Düzenleyici</h2>
+
+<button class="btn btn-primary mb-2" id="btnAddSeat">Koltuk Ekle</button>
+
+<div id="planContainer"
+     style="position:relative;
+            width:@(planWidth)px;
+            height:@(planHeight)px;
+            background-image: url('@planImage');
+            background-size: cover;
+            background-repeat: no-repeat;
+            border: 1px solid #ccc;">
+    @* Mevcut koltuklar *@
+    @foreach (var koltuk in Model)
+    {
+        <div class="seat"
+             style="position:absolute;
+                    width:14px; height:14px;
+                    border-radius:50%;
+                    background-color:lightblue;
+                    cursor:move;
+                    left:@koltuk.XCoord px;
+                    top:@koltuk.YCoord px;"
+             data-id="@koltuk.Id"
+             data-koltukno="@koltuk.KoltukNo">
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        const planDiv = document.getElementById("planContainer");
+        const btnAddSeat = document.getElementById("btnAddSeat");
+
+        let dragSeat = null;  // sürüklenen seat element
+        let offsetX = 0, offsetY = 0;  // mouse - element offset
+
+        // ========== 1) YENI KOLTUK EKLE BUTONU ==========
+        btnAddSeat.addEventListener("click", () => {
+            // Yeni koltuk div'i oluştur
+            const newSeat = document.createElement("div");
+            newSeat.className = "seat new-seat";
+            newSeat.style.position = "absolute";
+            newSeat.style.width = "20px";
+            newSeat.style.height = "20px";
+            newSeat.style.borderRadius = "50%";
+            newSeat.style.backgroundColor = "lightgreen";
+            newSeat.style.cursor = "move";
+            newSeat.style.left = "10px"; // Örn. 10,10'a koyduk
+            newSeat.style.top = "10px";
+            newSeat.setAttribute("data-id", "0"); // henüz veritabanına kaydedilmedi
+            newSeat.setAttribute("data-koltukno", "");
+
+            planDiv.appendChild(newSeat);
+        });
+
+        // ========== 2) MOUSE EVENTS (mousedown / mousemove / mouseup) ==========
+        // Mousedown: koltuğu tutmaya başlıyoruz
+        planDiv.addEventListener("mousedown", function (e) {
+            if (e.target.classList.contains("seat")) {
+                dragSeat = e.target;
+                const rect = dragSeat.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                e.preventDefault();
+            }
+        });
+
+        // Mousemove: seat'i hareket ettir
+        document.addEventListener("mousemove", function (e) {
+            if (dragSeat) {
+                const containerRect = planDiv.getBoundingClientRect();
+                // seat boyutu
+                const seatWidth = dragSeat.offsetWidth;
+                const seatHeight = dragSeat.offsetHeight;
+
+                let newLeft = e.clientX - containerRect.left - offsetX;
+                let newTop = e.clientY - containerRect.top - offsetY;
+
+                // CLAMP: resim dışına çıkmasın
+                if (newLeft < 0) newLeft = 0;
+                if (newTop < 0) newTop = 0;
+                if (newLeft > containerRect.width - seatWidth) {
+                    newLeft = containerRect.width - seatWidth;
+                }
+                if (newTop > containerRect.height - seatHeight) {
+                    newTop = containerRect.height - seatHeight;
+                }
+
+                dragSeat.style.left = newLeft + "px";
+                dragSeat.style.top = newTop + "px";
+            }
+        });
+
+        // Mouseup: sürükleme bitti => eğer seat varsa veritabanına kaydedelim
+        document.addEventListener("mouseup", function (e) {
+            if (dragSeat) {
+                const seatId = dragSeat.getAttribute("data-id");
+                let newLeft = parseInt(dragSeat.style.left.replace("px", ""));
+                let newTop = parseInt(dragSeat.style.top.replace("px", ""));
+
+                if (seatId === "0") {
+                    // YENI: Koltuk henüz DB'de yok -> CREATE
+                    // Basit bir KoltukNo sorabiliriz, prompt() veya modal
+                    let koltukNo = prompt("Koltuk No Giriniz:", "");
+                    if (koltukNo == null) {
+                        // iptal => koltuğu sayfadan kaldır
+                        dragSeat.remove();
+                    } else {
+                        dragSeat.setAttribute("data-koltukno", koltukNo);
+                        // Ajax Create
+                        let formData = new FormData();
+                        formData.append("KatId", "@kat.Id");
+                        formData.append("XCoord", newLeft);
+                        formData.append("YCoord", newTop);
+                        formData.append("RowIndex", 0);
+                        formData.append("ColumnIndex", 0);
+                        formData.append("Aciklama", "");
+                        formData.append("KoltukNo", koltukNo);
+                        formData.append("Durum", "false"); // boş olsun varsayılan
+                        fetch('@Url.Action("Create", "Koltuk")', { method: "POST", body: formData })
+                            .then(r => r.text())
+                            .then(dbId => {
+                                // Geriye "ID" dönerseniz.
+                                // Koltuk eklendi => seatId güncelle
+                                dragSeat.setAttribute("data-id", dbId);
+                                alert("Yeni koltuk eklendi (ID: " + dbId + ")");
+                            });
+                    }
+                }
+                else {
+                    // VAR OLAN: Koordinat güncelle => /Koltuk/EditPosition
+                    let formData = new FormData();
+                    formData.append("id", seatId);
+                    formData.append("XCoord", newLeft);
+                    formData.append("YCoord", newTop);
+                    fetch('@Url.Action("EditPosition", "Koltuk")', { method: "POST", body: formData });
+                }
+
+                dragSeat = null;
+            }
+        });
+    </script>
+}

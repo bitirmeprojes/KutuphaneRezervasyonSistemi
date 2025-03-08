@@ -15,51 +15,76 @@ namespace KTRS.Controllers
             _context = context;
         }
 
-        // GET /Ogrenci/Index?katNo=1
-        // Bu action, ilgili kattaki TÜM ekli koltukları listeler (Durum true/false fark etmez).
-        public async Task<IActionResult> Index(int katNo = 1)
+        // 1) BLOK SEÇME
+        // GET: /Ogrenci/SelectBlock
+        // Tüm blokları listeler, öğrenci hangi bloğu seçeceğini buradan tıklar
+        public async Task<IActionResult> SelectBlock()
         {
-            // Koltuk tablosunda KatNo = verilen katNo olanları çekiyoruz.
-            // "Sadece eklenmiş koltuklar" = zaten Koltuk tablosunda kaydı olanlar.
-            //var koltuklar = await _context.Koltuklar
-            //                              .Where(k => k.KatNo == katNo)
-            //                              .OrderBy(k => k.RowIndex)
-            //                              .ThenBy(k => k.ColumnIndex)
-            //                              .ToListAsync();
-
-            var koltuklar = _context.Koltuklar
-                        .Where(k => k.KatNo == katNo)
-                        .ToList();
-            var kat = _context.Katlar.Find(katNo);
-            if (kat == null) return NotFound();
-
-            int maxRow = kat.MaxRow;
-            int maxCol = kat.MaxCol;
-
-            ViewBag.KatNo = katNo; // Görünümde kullanmak üzere kat bilgisini tutuyoruz.
-            ViewBag.MaxRow = maxRow; // Görünümde kullanmak üzere kat bilgisini tutuyoruz.
-            ViewBag.MaxCol = maxCol; // Görünümde kullanmak üzere kat bilgisini tutuyoruz.
-
-            return View(koltuklar);
+            var blocks = await _context.Block
+                                       .OrderBy(b => b.Ad)
+                                       .ToListAsync();
+            return View(blocks);
         }
 
-        // POST /Ogrenci/RezervasyonYap
-        // Öğrenci, KoltukNo veya KoltukId üzerinden rezervasyon isteğinde bulunur
+        // 2) KAT SEÇME
+        // GET: /Ogrenci/SelectKat?blockId=...
+        // Seçilen bloğun katlarını listeler, öğrenci buradan bir katı tıklar
+        public async Task<IActionResult> SelectKat(int blockId)
+        {
+            // Seçilen bloğu çek (içindeki Katlar'ı da almak isterseniz Include kullanabilirsiniz)
+            var block = await _context.Block
+                                      .Include(b => b.Kats)
+                                      .FirstOrDefaultAsync(b => b.Id == blockId);
+            if (block == null)
+                return NotFound();
+
+            return View(block);
+        }
+
+        // 3) KOLTUKLARI GÖRÜNTÜLE
+        // GET: /Ogrenci/Index?katId=...
+        // Belirli bir katın koltuklarını grid/liste şeklinde gösterir
+        [HttpGet]
+        public async Task<IActionResult> Index(int katId = 1)
+        {
+            var kat = await _context.Katlar
+                                    .Include(x => x.Block)
+                                    .FirstOrDefaultAsync(x => x.Id == katId);
+            if (kat == null) return NotFound();
+
+            // O kattaki koltukları çek
+            var koltuklar = await _context.Koltuklar
+                                          .Where(k => k.KatId == katId)
+                                          .ToListAsync();
+
+            // Gerekirse blueprint resminin adını Kat modelinde tutabilirsiniz (kat.PlanImagePath vs.)
+            // Şimdilik sabit resim kullanacak varsayıyoruz.
+
+            ViewBag.PlanImage = "/images/A_Kat_Arastirma Salonu.jpg";
+            ViewBag.Kat = kat; // Kat bilgisini View'de kullanabilirsiniz
+            return View(koltuklar); // Koltuk listesi model
+        }
+
+
+        // 4) REZERVASYON YAP
+        // POST: /Ogrenci/RezervasyonYap
+        // Kullanıcı koltuğa tıklayınca rezerve et
         [HttpPost]
         public async Task<IActionResult> RezervasyonYap(string ogrenciID, string koltukNo)
         {
-            // Koltuğu bul → Durum = false (yani boş/müsait) ise rezerve et
+            // Koltuğu bul → Durum=false => rezerve et
             var koltuk = await _context.Koltuklar
-                                       .FirstOrDefaultAsync(k => k.koltukNo == koltukNo && !k.Durum);
+                                       .Include(k => k.Kat)
+                                       .FirstOrDefaultAsync(k => k.KoltukNo == koltukNo && k.Durum == false);
             if (koltuk != null)
             {
-                // Koltuk rezerve olsun
-                koltuk.Durum = true; // Artık dolu
+                // Koltuğu dolu yap
+                koltuk.Durum = true;
 
-                // Rezervasyon tablosuna da ek kayıt atıyoruz (opsiyonel)
+                // Rezervasyon tablosuna ek
                 var rezervasyon = new Rezervasyon
                 {
-                    RezervasyonID = System.Guid.NewGuid().ToString(),
+                    RezervasyonID = Guid.NewGuid().ToString(),
                     Durum = true,
                     ogrenciID = ogrenciID,
                     KoltukNo = koltukNo
@@ -67,10 +92,11 @@ namespace KTRS.Controllers
                 _context.Rezervasyonlar.Add(rezervasyon);
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index), new { katNo = koltuk.KatNo });
+
+                return RedirectToAction(nameof(Index), new { katId = koltuk.KatId });
             }
-            // Hata durumu
             return View("Error");
         }
+
     }
 }

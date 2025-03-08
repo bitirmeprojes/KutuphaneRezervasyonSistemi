@@ -1,44 +1,26 @@
 ﻿@model KTRS.Models.Kat
-
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Kat Düzenle";
 }
 
-<h1>Edit</h1>
+<h2>Kat Düzenle</h2>
 
-<h4>Kat</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="KatNo" class="control-label"></label>
-                <input asp-for="KatNo" class="form-control" />
-                <span asp-validation-for="KatNo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MaxRow" class="control-label"></label>
-                <input asp-for="MaxRow" class="form-control" />
-                <span asp-validation-for="MaxRow" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MaxCol" class="control-label"></label>
-                <input asp-for="MaxCol" class="form-control" />
-                <span asp-validation-for="MaxCol" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<form method="post" asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="BlockId" />
+
+    <div class="form-group">
+        <label>Kat No</label>
+        <input asp-for="KatNo" class="form-control" />
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    <div class="form-group">
+        <label>Max Row</label>
+        <input asp-for="MaxRow" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Max Col</label>
+        <input asp-for="MaxCol" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" asp-route-blockId="@Model.BlockId" class="btn btn-secondary">İptal</a>
+</form>

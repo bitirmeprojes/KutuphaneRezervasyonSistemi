@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4TV2NAbPF3oEf+0eNQSSBjOOChXkUKvWwDodwxbsyEk=",
+  "Hash": "XaTfy4Ddso0GVD7m5EcKEZQlYYTINgbViyV314B+S+E=",
   "Source": "KTRS",
   "BasePath": "_content/KTRS",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\KTRS.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\wwwroot\\A_Kat_Arastirma Salonu.jpg",
+      "SourceId": "KTRS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\wwwroot\\",
+      "BasePath": "_content/KTRS",
+      "RelativePath": "A_Kat_Arastirma Salonu.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\A_Kat_Arastirma Salonu.jpg"
     },
     {
       "Identity": "C:\\Users\\elsat\\Dropbox\\My PC (LAPTOP-KI9FGA7L)\\Documents\\GitHub\\KutuphaneRezervasyonSistemi\\wwwroot\\css\\site.css",

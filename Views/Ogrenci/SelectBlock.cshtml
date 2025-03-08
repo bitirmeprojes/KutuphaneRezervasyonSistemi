@@ -1,0 +1,15 @@
+﻿@model List<KTRS.Models.Block>
+@{
+    ViewData["Title"] = "Blok Seç";
+}
+
+<h2>Blok Seçiniz</h2>
+
+<ul>
+    @foreach (var block in Model)
+    {
+        <li>
+            <a asp-action="SelectKat" asp-route-blockId="@block.Id">@block.Ad</a>
+        </li>
+    }
+</ul>

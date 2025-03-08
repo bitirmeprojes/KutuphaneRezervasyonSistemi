@@ -1,46 +1,41 @@
 ﻿@model List<KTRS.Models.Koltuk>
-
 @{
     ViewData["Title"] = "Koltuk Düzeni";
-    int katNo = ViewBag.KatNo;
-    int maxRow = ViewBag.MaxRow;
-    int maxCol = ViewBag.MaxCol;
+    var kat = ViewBag.Kat as KTRS.Models.Kat;
+    // Kat'ta tanımlı maxRow / maxCol varsa alalım:
+    int maxRow = kat?.MaxRow ?? 4;
+    int maxCol = kat?.MaxCol ?? 4;
 }
 
-<h2>Kat: @katNo Koltuk Düzeni (@maxRow x @maxCol)</h2>
+<h2>@($"Blok: {kat?.Block?.Ad}, KatNo: {kat?.KatNo} Koltuk Düzeni ({maxRow}x{maxCol})")</h2>
 
 <p>
-    <!-- Kat düzenini (maxRow, maxCol) düzenlemek için link -->
-    <a asp-action="EditDuzeni" asp-route-katNo="@katNo">Kat Düzeni Ayarları</a>
+    <a asp-controller="Kat" asp-action="Index" asp-route-blockId="@kat?.BlockId" class="btn btn-secondary">Kat Listesine Dön</a>
 </p>
 
-<!-- Çift döngü ile grid -->
+<!-- Grid Döngüsü -->
 @for (int row = 0; row < maxRow; row++)
 {
     <div style="display:flex;">
         @for (int col = 0; col < maxCol; col++)
         {
-            // Koltuk var mı?
-            var koltuk = Model.FirstOrDefault(k => k.RowIndex == row &&
-            k.ColumnIndex == col &&
-            k.KatNo == katNo);
-
+            // O row,col'da koltuk var mı?
+            var koltuk = Model.FirstOrDefault(k => k.RowIndex == row && k.ColumnIndex == col);
             if (koltuk != null)
             {
-                var bgColor = koltuk.Durum ? "lightblue" : "red";
-
-                <div style="width:80px; height:80px; margin:2px; text-align:center; background-color:@bgColor;">
-                    <!-- Koltuk No veya Id gösterilebilir -->
-                    <div>@koltuk.koltukNo</div>
+                var bgColor = koltuk.Durum ? "red" : "lightblue"; // true=dolu, false=boş (örnek)
+                <div style="width:60px; height:60px; margin:3px; background-color:@bgColor; text-align:center;">
+                    @koltuk.KoltukNo
+                    <br />
                     <a asp-action="Edit" asp-route-id="@koltuk.Id">Düzenle</a> |
                     <a asp-action="Delete" asp-route-id="@koltuk.Id">Sil</a>
                 </div>
             }
             else
             {
-                <div style="width:80px; height:80px; margin:2px; background-color:#ccc; text-align:center;">
-                    <p>Boş</p>
-                    <a asp-action="Create" asp-route-row="@row" asp-route-col="@col" asp-route-katNo="@katNo">Ekle</a>
+                // Kayıtlı koltuk yoksa "Boş"
+                <div style="width:60px; height:60px; margin:3px; background-color:gray; text-align:center;">
+                    <a asp-action="Create" asp-route-katId="@kat?.Id" asp-route-row="@row" asp-route-col="@col">Ekle</a>
                 </div>
             }
         }

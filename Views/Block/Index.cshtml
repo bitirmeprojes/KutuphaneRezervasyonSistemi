@@ -1,0 +1,35 @@
+﻿@model List<KTRS.Models.Block>
+@{
+    ViewData["Title"] = "Blok Listesi";
+}
+
+<h2>Bloklar</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Blok Ekle</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Ad</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Ad</td>
+                <td>
+                    <!-- Kat listesine gitmek için link (KatController/Index?blockId=xxx) -->
+                    <a asp-area="" asp-controller="Kat" asp-action="Index" asp-route-blockId="@item.Id" class="btn btn-info">Katlar</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Düzenle</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

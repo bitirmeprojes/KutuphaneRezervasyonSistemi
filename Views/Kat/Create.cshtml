@@ -1,28 +1,25 @@
 ﻿@model KTRS.Models.Kat
-
 @{
     ViewData["Title"] = "Kat Ekle";
+    var blockId = Model.BlockId;
 }
 
 <h2>Kat Ekle</h2>
 
 <form method="post" asp-action="Create">
+    <input type="hidden" asp-for="BlockId" value="@blockId"/>
     <div class="form-group">
         <label>Kat No</label>
         <input asp-for="KatNo" class="form-control" />
     </div>
     <div class="form-group">
-        <label>Ad</label>
-        <input asp-for="Ad" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Satır</label>
+        <label>Max Row</label>
         <input asp-for="MaxRow" class="form-control" />
     </div>
     <div class="form-group">
-        <label>Sütun</label>
+        <label>Max Col</label>
         <input asp-for="MaxCol" class="form-control" />
     </div>
     <button type="submit" class="btn btn-primary">Kaydet</button>
-    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    <a asp-action="Index" asp-route-blockId="@blockId" class="btn btn-secondary">İptal</a>
 </form>

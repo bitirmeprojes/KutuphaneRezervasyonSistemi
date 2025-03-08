@@ -1,17 +1,27 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace KTRS.Models
 {
     public class Kat
     {
         [Key]
-        public int Id {  get; set; }
-        public int KatNo { get; set; }
-        public string Ad { get; set; }
-        public int MaxRow { get; set; }
-        public int MaxCol { get; set; }
+        public int Id { get; set; }
 
-        // Bu kat için veritabanından çektiğimiz tüm koltuklar
-        public List<Koltuk> Koltuklar { get; set; } = new List<Koltuk>();
+        // Hangi blokta
+        public int BlockId { get; set; }
+        [ValidateNever]
+        public Block Block { get; set; }
+
+        // Kat numarası veya kat adı
+        public int KatNo { get; set; }
+
+        // Katın koltuk düzeni için (opsiyonel)
+        public int MaxRow { get; set; } = 4;
+        public int MaxCol { get; set; } = 4;
+
+        // Navigation property (1 katın birden çok koltuğu)
+        [ValidateNever]
+        public ICollection<Koltuk> Koltuklar { get; set; }
     }
 }

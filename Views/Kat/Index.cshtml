@@ -1,34 +1,41 @@
 ﻿@model List<KTRS.Models.Kat>
-
 @{
     ViewData["Title"] = "Kat Listesi";
+    var block = ViewBag.Block as KTRS.Models.Block;
 }
 
-<h2>Katlar</h2>
+<h2>@($"Blok: {block?.Ad} - Katlar")</h2>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Kat Ekle</a>
+    <!-- Kat Ekle sayfasına link; blockId parametresini taşıyoruz -->
+    <a asp-action="Create" asp-route-blockId="@block?.Id" class="btn btn-primary">Yeni Kat Ekle</a>
+    |
+    <a asp-controller="Block" asp-action="Index" class="btn btn-secondary">Blok Listesine Dön</a>
 </p>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Id</th>
+            <th>ID</th>
             <th>KatNo</th>
-            <th>Ad</th>
+            <th>MaxRow</th>
+            <th>MaxCol</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var kat in Model)
         {
             <tr>
-                <td>@item.Id</td>
-                <td>@item.KatNo</td>
-                <td>@item.Ad</td>
+                <td>@kat.Id</td>
+                <td>@kat.KatNo</td>
+                <td>@kat.MaxRow</td>
+                <td>@kat.MaxCol</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Düzenle</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+                    <!-- Koltuklar linki (KoltukController/Index?katId=xxx) -->
+                    <a asp-area="" asp-controller="Koltuk" asp-action="Index" asp-route-katId="@kat.Id" class="btn btn-info">Koltuk Düzeni</a> |
+                    <a asp-action="PlanEditor" asp-route-id="@kat.Id" class="btn btn-warning">Düzenle</a> |
+                    <a asp-action="Delete" asp-route-id="@kat.Id" class="btn btn-danger">Sil</a>
                 </td>
             </tr>
         }

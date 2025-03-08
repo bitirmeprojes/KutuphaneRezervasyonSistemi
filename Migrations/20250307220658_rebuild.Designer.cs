@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KTRS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250306220121_ktrs_add_model_rezervasyon")]
-    partial class ktrs_add_model_rezervasyon
+    [Migration("20250307220658_rebuild")]
+    partial class rebuild
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace KTRS.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("KTRS.Models.Koltuk", b =>
+            modelBuilder.Entity("KTRS.Models.Block", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,43 +33,26 @@ namespace KTRS.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Aciklama")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<int>("ColumnIndex")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("Durum")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("KatNo")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("KoltukIndexViewModelId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RowIndex")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("koltukNo")
+                    b.Property<string>("Ad")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KoltukIndexViewModelId");
-
-                    b.ToTable("Koltuklar");
+                    b.ToTable("Block");
                 });
 
-            modelBuilder.Entity("KTRS.Models.KoltukIndexViewModel", b =>
+            modelBuilder.Entity("KTRS.Models.Kat", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BlockId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("KatNo")
                         .HasColumnType("integer");
@@ -82,7 +65,45 @@ namespace KTRS.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("KoltukIndexViewModel");
+                    b.HasIndex("BlockId");
+
+                    b.ToTable("Katlar");
+                });
+
+            modelBuilder.Entity("KTRS.Models.Koltuk", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Aciklama")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ColumnIndex")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Durum")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("KatId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("KoltukNo")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<int>("RowIndex")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KatId");
+
+                    b.ToTable("Koltuklar");
                 });
 
             modelBuilder.Entity("KTRS.Models.Ogrenci", b =>
@@ -193,14 +214,34 @@ namespace KTRS.Migrations
                     b.ToTable("Yetkililer");
                 });
 
-            modelBuilder.Entity("KTRS.Models.Koltuk", b =>
+            modelBuilder.Entity("KTRS.Models.Kat", b =>
                 {
-                    b.HasOne("KTRS.Models.KoltukIndexViewModel", null)
-                        .WithMany("Koltuklar")
-                        .HasForeignKey("KoltukIndexViewModelId");
+                    b.HasOne("KTRS.Models.Block", "Block")
+                        .WithMany("Kats")
+                        .HasForeignKey("BlockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Block");
                 });
 
-            modelBuilder.Entity("KTRS.Models.KoltukIndexViewModel", b =>
+            modelBuilder.Entity("KTRS.Models.Koltuk", b =>
+                {
+                    b.HasOne("KTRS.Models.Kat", "Kat")
+                        .WithMany("Koltuklar")
+                        .HasForeignKey("KatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kat");
+                });
+
+            modelBuilder.Entity("KTRS.Models.Block", b =>
+                {
+                    b.Navigation("Kats");
+                });
+
+            modelBuilder.Entity("KTRS.Models.Kat", b =>
                 {
                     b.Navigation("Koltuklar");
                 });

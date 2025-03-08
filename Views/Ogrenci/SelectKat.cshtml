@@ -1,0 +1,25 @@
+﻿@model KTRS.Models.Block
+@{
+    ViewData["Title"] = "Kat Seç";
+}
+
+<h2>@("Blok: " + Model.Ad + " - Katlar")</h2>
+
+@if (Model.Kats != null && Model.Kats.Any())
+{
+    <ul>
+        @foreach (var kat in Model.Kats)
+        {
+            <li>
+                <a asp-action="Index" asp-route-katId="@kat.Id">
+                    Kat No: @kat.KatNo
+                </a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Bu blokta henüz kat eklenmemiş.</p>
+}
+s

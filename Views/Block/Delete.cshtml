@@ -1,0 +1,15 @@
+﻿@model KTRS.Models.Block
+@{
+    ViewData["Title"] = "Blok Sil";
+}
+
+<h2>Blok Sil</h2>
+
+<div>
+    <h4>Silinecek Blok: @Model.Ad</h4>
+    <form method="post" asp-action="DeleteConfirmed" asp-route-id="@Model.Id">
+        <p>Silmek istediğinize emin misiniz?</p>
+        <button type="submit" class="btn btn-danger">Sil</button>
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

@@ -22,7 +22,7 @@ namespace KTRS.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("KTRS.Models.Kat", b =>
+            modelBuilder.Entity("KTRS.Models.Block", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,7 +32,24 @@ namespace KTRS.Migrations
 
                     b.Property<string>("Ad")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Block");
+                });
+
+            modelBuilder.Entity("KTRS.Models.Kat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BlockId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("KatNo")
                         .HasColumnType("integer");
@@ -44,6 +61,8 @@ namespace KTRS.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BlockId");
 
                     b.ToTable("Katlar");
                 });
@@ -57,8 +76,8 @@ namespace KTRS.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Aciklama")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("ColumnIndex")
                         .HasColumnType("integer");
@@ -66,18 +85,22 @@ namespace KTRS.Migrations
                     b.Property<bool>("Durum")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("KatId")
+                    b.Property<int>("KatId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("KatNo")
-                        .HasColumnType("integer");
+                    b.Property<string>("KoltukNo")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<int>("RowIndex")
                         .HasColumnType("integer");
 
-                    b.Property<string>("koltukNo")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("XCoord")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("YCoord")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -194,11 +217,31 @@ namespace KTRS.Migrations
                     b.ToTable("Yetkililer");
                 });
 
+            modelBuilder.Entity("KTRS.Models.Kat", b =>
+                {
+                    b.HasOne("KTRS.Models.Block", "Block")
+                        .WithMany("Kats")
+                        .HasForeignKey("BlockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Block");
+                });
+
             modelBuilder.Entity("KTRS.Models.Koltuk", b =>
                 {
-                    b.HasOne("KTRS.Models.Kat", null)
+                    b.HasOne("KTRS.Models.Kat", "Kat")
                         .WithMany("Koltuklar")
-                        .HasForeignKey("KatId");
+                        .HasForeignKey("KatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kat");
+                });
+
+            modelBuilder.Entity("KTRS.Models.Block", b =>
+                {
+                    b.Navigation("Kats");
                 });
 
             modelBuilder.Entity("KTRS.Models.Kat", b =>

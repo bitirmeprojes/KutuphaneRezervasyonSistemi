@@ -1,0 +1,15 @@
+﻿@model KTRS.Models.Block
+@{
+    ViewData["Title"] = "Yeni Blok Ekle";
+}
+
+<h2>Blok Ekle</h2>
+
+<form method="post" asp-action="Create">
+    <div class="form-group">
+        <label>Blok Adı</label>
+        <input asp-for="Ad" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>

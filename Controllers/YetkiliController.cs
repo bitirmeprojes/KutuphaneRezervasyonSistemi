@@ -27,7 +27,7 @@ namespace KTRS.Controllers
             var koltuk = await _context.Set<Koltuk>().FindAsync(id);
             if (koltuk != null)
             {
-                koltuk.koltukNo = yeniKoltukNo;
+                koltuk.KoltukNo = yeniKoltukNo;
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
