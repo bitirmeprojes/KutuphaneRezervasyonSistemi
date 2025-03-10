@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using KTRS.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using KTRS.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace KTRS.Controllers
 {
-    // [Authorize(Roles="Admin")]
+    // [Authorize(Roles="Admin")] // İster eklersiniz
     public class KoltukController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,14 +16,14 @@ namespace KTRS.Controllers
             _context = context;
         }
 
-        // Kat bazlı koltukları listelemek
+        // GET: /Koltuk/Index?katId=...
+        // Seçili katın koltuklarını listeler. (Siz isterseniz grid ya da tablo gösterebilirsiniz.)
         public async Task<IActionResult> Index(int katId)
         {
             var koltuklar = await _context.Koltuklar
                                           .Include(k => k.Kat)
                                           .Where(k => k.KatId == katId)
-                                          .OrderBy(k => k.RowIndex)
-                                          .ThenBy(k => k.ColumnIndex)
+                                          .OrderBy(k => k.KoltukNo) // veya Id, vs.
                                           .ToListAsync();
 
             ViewBag.Kat = await _context.Katlar
@@ -37,38 +33,44 @@ namespace KTRS.Controllers
             return View(koltuklar);
         }
 
+        // GET: /Koltuk/Create?katId=...
+        // Basit form sayfası (row=0, col=0 opsiyonel parametre)
         [HttpGet]
-        public async Task<IActionResult> Create(int katId, int row = 0, int col = 0)
+        public async Task<IActionResult> Create(int katId)
         {
             var kat = await _context.Katlar.FindAsync(katId);
             if (kat == null) return NotFound();
 
+            // Yeni koltuk modeli varsayılan değerlerle
             var model = new Koltuk
             {
                 KatId = katId,
-                RowIndex = row,
-                ColumnIndex = col,
-                Durum = false // varsayılan boş
+                XCoord = 0,
+                YCoord = 0,
+                Durum = false // varsayılan "boş"
             };
             return View(model);
         }
+
+        // POST: /Koltuk/Create
+        // Eğer admin panelinden normal form submit yapıyorsanız, "return Redirect(...)" diyebilirsiniz.
+        // Eğer sürükle-bırak + Ajax mantığı kullanıyorsanız, "return Content(...)" veya JSON dönebilirsiniz.
         [HttpPost]
         public IActionResult Create([FromForm] Koltuk model)
         {
             if (ModelState.IsValid)
             {
-                // model.KatId, model.XCoord, model.YCoord, model.KoltukNo, model.Durum vs. doldurulmuş olacak
                 _context.Koltuklar.Add(model);
                 _context.SaveChanges();
-                return Content("OK"); // Veya Json(new { success=true })
+                return Content(model.Id.ToString()); // Yeni ID
             }
-            return BadRequest("Invalid model");
+            // ModelState hatalarını toplayalım
+            var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                          .Select(e => e.ErrorMessage);
+            return BadRequest("Invalid model: " + string.Join("; ", errors));
         }
 
-
-
-
-
+        // GET: /Koltuk/Edit/5
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -78,6 +80,7 @@ namespace KTRS.Controllers
             return View(koltuk);
         }
 
+        // POST: /Koltuk/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Koltuk model)
@@ -87,8 +90,9 @@ namespace KTRS.Controllers
                 var koltuk = await _context.Koltuklar.FindAsync(model.Id);
                 if (koltuk == null) return NotFound();
 
-                koltuk.RowIndex = model.RowIndex;
-                koltuk.ColumnIndex = model.ColumnIndex;
+                // X/Y konumu da güncellenebilir
+                koltuk.XCoord = model.XCoord;
+                koltuk.YCoord = model.YCoord;
                 koltuk.Durum = model.Durum;
                 koltuk.KoltukNo = model.KoltukNo;
                 koltuk.Aciklama = model.Aciklama;
@@ -98,6 +102,9 @@ namespace KTRS.Controllers
             }
             return View(model);
         }
+
+        // POST: /Koltuk/EditPosition
+        // Sürükle-bırak senaryosunda sadece XCoord/YCoord güncelleyen basit bir endpoint
         [HttpPost]
         public IActionResult EditPosition(int id, int XCoord, int YCoord)
         {
@@ -111,23 +118,27 @@ namespace KTRS.Controllers
             return Ok();
         }
 
+        // GET: /Koltuk/Delete/5
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             var koltuk = await _context.Koltuklar
                                        .Include(k => k.Kat)
                                        .FirstOrDefaultAsync(k => k.Id == id);
-            if (koltuk == null) return NotFound();
+            if (koltuk == null)
+                return NotFound();
 
             return View(koltuk);
         }
 
+        // POST: /Koltuk/DeleteConfirmed/5
         [HttpPost, ActionName("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var koltuk = await _context.Koltuklar.FindAsync(id);
-            if (koltuk == null) return NotFound();
+            if (koltuk == null)
+                return NotFound();
 
             var katId = koltuk.KatId;
             _context.Koltuklar.Remove(koltuk);

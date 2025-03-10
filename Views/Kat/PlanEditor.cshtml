@@ -9,7 +9,7 @@
 
 <h2>[ADMIN] - Kat: @kat.KatNo Plan Düzenleyici</h2>
 
-<button class="btn btn-primary mb-2" id="btnAddSeat">Koltuk Ekle</button>
+<button class="btn btn-primary btn-sm" id="btnAddSeat">Koltuk Ekle</button>
 
 <div id="planContainer"
      style="position:relative;
@@ -24,15 +24,16 @@
     {
         <div class="seat"
              style="position:absolute;
-                    width:14px; height:14px;
-                    border-radius:50%;
-                    background-color:lightblue;
-                    cursor:move;
-                    left:@koltuk.XCoord px;
-                    top:@koltuk.YCoord px;"
+            width:14px; height:14px;
+            border-radius:50%;
+            background-color:lightblue;
+            cursor:move;
+            left:@(koltuk.XCoord)px;
+            top:@(koltuk.YCoord)px;"
              data-id="@koltuk.Id"
              data-koltukno="@koltuk.KoltukNo">
         </div>
+
     }
 </div>
 
@@ -50,8 +51,8 @@
             const newSeat = document.createElement("div");
             newSeat.className = "seat new-seat";
             newSeat.style.position = "absolute";
-            newSeat.style.width = "20px";
-            newSeat.style.height = "20px";
+            newSeat.style.width = "14px";
+            newSeat.style.height = "14px";
             newSeat.style.borderRadius = "50%";
             newSeat.style.backgroundColor = "lightgreen";
             newSeat.style.cursor = "move";
@@ -122,11 +123,8 @@
                         formData.append("KatId", "@kat.Id");
                         formData.append("XCoord", newLeft);
                         formData.append("YCoord", newTop);
-                        formData.append("RowIndex", 0);
-                        formData.append("ColumnIndex", 0);
-                        formData.append("Aciklama", "");
+                        formData.append("Aciklama", "kat: "+@kat.Id);
                         formData.append("KoltukNo", koltukNo);
-                        formData.append("Durum", "false"); // boş olsun varsayılan
                         fetch('@Url.Action("Create", "Koltuk")', { method: "POST", body: formData })
                             .then(r => r.text())
                             .then(dbId => {

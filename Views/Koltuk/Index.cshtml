@@ -1,43 +1,58 @@
 ﻿@model List<KTRS.Models.Koltuk>
 @{
-    ViewData["Title"] = "Koltuk Düzeni";
+    ViewData["Title"] = "Koltuk Düzeni (Koordinat Tabanlı)";
     var kat = ViewBag.Kat as KTRS.Models.Kat;
-    // Kat'ta tanımlı maxRow / maxCol varsa alalım:
-    int maxRow = kat?.MaxRow ?? 4;
-    int maxCol = kat?.MaxCol ?? 4;
+
+    // Plan resmi yolunu (ör. /images/kutuphanePlan.png)
+    // ve boyutlarını sabit veya veritabanından alabilirsiniz
+    string planImage = Url.Content("~/A_Kat_Arastirma Salonu.jpg");
+    int planWidth = 800;
+    int planHeight = 600;
 }
 
-<h2>@($"Blok: {kat?.Block?.Ad}, KatNo: {kat?.KatNo} Koltuk Düzeni ({maxRow}x{maxCol})")</h2>
+<h2>@($"Blok: {kat?.Block?.Ad} - KatNo: {kat?.KatNo}")</h2>
 
-<p>
-    <a asp-controller="Kat" asp-action="Index" asp-route-blockId="@kat?.BlockId" class="btn btn-secondary">Kat Listesine Dön</a>
-</p>
+<div style="margin-bottom:10px;">
+    <a asp-controller="Kat"
+       asp-action="Index"
+       asp-route-blockId="@kat?.BlockId"
+       class="btn btn-secondary">
+        Kat Listesine Dön
+    </a>
+</div>
 
-<!-- Grid Döngüsü -->
-@for (int row = 0; row < maxRow; row++)
-{
-    <div style="display:flex;">
-        @for (int col = 0; col < maxCol; col++)
-        {
-            // O row,col'da koltuk var mı?
-            var koltuk = Model.FirstOrDefault(k => k.RowIndex == row && k.ColumnIndex == col);
-            if (koltuk != null)
-            {
-                var bgColor = koltuk.Durum ? "red" : "lightblue"; // true=dolu, false=boş (örnek)
-                <div style="width:60px; height:60px; margin:3px; background-color:@bgColor; text-align:center;">
-                    @koltuk.KoltukNo
-                    <br />
-                    <a asp-action="Edit" asp-route-id="@koltuk.Id">Düzenle</a> |
-                    <a asp-action="Delete" asp-route-id="@koltuk.Id">Sil</a>
-                </div>
-            }
-            else
-            {
-                // Kayıtlı koltuk yoksa "Boş"
-                <div style="width:60px; height:60px; margin:3px; background-color:gray; text-align:center;">
-                    <a asp-action="Create" asp-route-katId="@kat?.Id" asp-route-row="@row" asp-route-col="@col">Ekle</a>
-                </div>
-            }
-        }
-    </div>
-}
+<!-- Arkaplan resmi -->
+<div style="
+    position: relative;
+    width: @(planWidth)px;
+    height: @(planHeight)px;
+    background: url('@planImage') no-repeat center center;
+    background-size: cover;
+    border: 1px solid #ccc;
+">
+
+    <!-- Her koltuk için mutlak konumlu bir div -->
+    @foreach (var koltuk in Model)
+    {
+        // Koltuk dolu mu boş mu?
+        var color = koltuk.Durum ? "red" : "lightblue";
+
+        <div style="
+            position:absolute;
+            width:14px; height:14px;
+            border-radius:50%;
+            background-color:lightblue;
+            cursor:move;
+            left:@(koltuk.XCoord)px;
+            top:@(koltuk.YCoord)px;"
+             data-id="@koltuk.Id"
+             data-koltukno="@koltuk.KoltukNo">
+            <p>@koltuk.KoltukNo</p>
+        </div>
+    }
+</div>
+
+<!--
+    Koltuk eklemek isterseniz "Create" linki vb.
+    ya da Admin sayfalarında PlanEditor gibi sürükle-bırak logic.
+-->

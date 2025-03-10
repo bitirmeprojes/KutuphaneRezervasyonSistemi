@@ -16,10 +16,6 @@ namespace KTRS.Models
         // Kat numarası veya kat adı
         public int KatNo { get; set; }
 
-        // Katın koltuk düzeni için (opsiyonel)
-        public int MaxRow { get; set; } = 4;
-        public int MaxCol { get; set; } = 4;
-
         // Navigation property (1 katın birden çok koltuğu)
         [ValidateNever]
         public ICollection<Koltuk> Koltuklar { get; set; }

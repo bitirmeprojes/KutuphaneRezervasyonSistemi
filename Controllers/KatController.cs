@@ -58,7 +58,7 @@ namespace KTRS.Controllers
             return View(model);
         }
         [HttpGet]
-        public IActionResult PlanEditor(int katId = 1)
+        public IActionResult PlanEditor(int katId)
         {
             // Bu katin bilgilerini ve varsa mevcut koltuklarini cekelim
             var kat = _context.Katlar
@@ -93,8 +93,7 @@ namespace KTRS.Controllers
                 if (kat == null) return NotFound();
 
                 kat.KatNo = model.KatNo;
-                kat.MaxRow = model.MaxRow;
-                kat.MaxCol = model.MaxCol;
+
                 // block değişikliğine izin vermek isterseniz blockId de güncellenebilir
 
                 await _context.SaveChangesAsync();

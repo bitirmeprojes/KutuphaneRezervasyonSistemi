@@ -10,14 +10,6 @@
     <input type="hidden" asp-for="KatNo" />
     <input type="hidden" asp-for="Id" />
 
-    <div class="form-group">
-        <label>Max Row:</label>
-        <input asp-for="MaxRow" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Max Col:</label>
-        <input asp-for="MaxCol" class="form-control" />
-    </div>
     <button type="submit" class="btn btn-primary">Kaydet</button>
     <a asp-action="Index" asp-route-katNo="@Model.KatNo" class="btn btn-secondary">Geri Dön</a>
 </form>

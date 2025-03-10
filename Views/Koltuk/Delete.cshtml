@@ -6,7 +6,7 @@
 <h2>Koltuk Sil</h2>
 
 <div>
-    <h4>@($"Koltuk: {Model.KoltukNo} (Row={Model.RowIndex}, Col={Model.ColumnIndex})")</h4>
+    <h4>@($"Koltuk: {Model.KoltukNo} )")</h4>
     <form method="post" asp-action="DeleteConfirmed" asp-route-id="@Model.Id">
         <p>Bu koltuğu silmek istediğinize emin misiniz?</p>
         <button type="submit" class="btn btn-danger">Sil</button>

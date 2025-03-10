@@ -12,14 +12,7 @@
         <label>Kat No</label>
         <input asp-for="KatNo" class="form-control" />
     </div>
-    <div class="form-group">
-        <label>Max Row</label>
-        <input asp-for="MaxRow" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Max Col</label>
-        <input asp-for="MaxCol" class="form-control" />
-    </div>
+
     <button type="submit" class="btn btn-primary">Kaydet</button>
     <a asp-action="Index" asp-route-blockId="@blockId" class="btn btn-secondary">İptal</a>
 </form>

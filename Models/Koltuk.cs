@@ -14,10 +14,6 @@ namespace KTRS.Models
         [ValidateNever]
         public Kat Kat { get; set; }
 
-        // Koltuk koordinatı (örneğin 0..7 satır, 0..3 sütun)
-        public int RowIndex { get; set; }
-        public int ColumnIndex { get; set; }
-
         // Koordinatlar (piksel, orantı, vs.)
         [ValidateNever]
         public int XCoord { get; set; }
